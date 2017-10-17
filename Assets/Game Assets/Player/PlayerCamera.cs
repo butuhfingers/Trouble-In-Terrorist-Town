@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour {
+public class PlayerCamera : MonoBehaviour{
+
+	//Variables
+	private ICameraSetup cameraSetup;
+
+	//Properties
+	public ICameraSetup CameraSetup{
+		get { return cameraSetup; }
+	}
 
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public void Initialize (ICameraSetup cameraSetup) {
+		this.cameraSetup = cameraSetup;
 	}
 }

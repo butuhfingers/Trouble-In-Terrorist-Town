@@ -27,10 +27,6 @@ public class PlayerBase : NetworkBehaviour {
 
 			//Change the name on the text mesh too
 			playerNameText.GetComponent<TextMesh>().text = value;
-
-			//We need to check if anything has changed
-			//Otherwise i can crash the server
-
 		}
 	}
 
@@ -63,6 +59,7 @@ public class PlayerBase : NetworkBehaviour {
 		if(playerNetworkerScript.IsLocalPlayer){
 			//Add this to our player
 			playerCameraScript = gameObject.AddComponent<PlayerCamera>();
+			playerCameraScript.Initialize(new MurderCameraSetup());	//Set the camera to the murder camera setup
 			playerMoveScript = gameObject.AddComponent<PlayerMove>();
 		}
 	}
