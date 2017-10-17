@@ -60,6 +60,7 @@ public class PlayerBase : NetworkBehaviour {
 			//Add this to our player
 			playerCameraScript = gameObject.AddComponent<PlayerCamera>();
 			playerCameraScript.Initialize(new MurderCameraSetup());	//Set the camera to the murder camera setup
+			Debug.Log("Another test commit");
 			playerMoveScript = gameObject.AddComponent<PlayerMove>();
 		}
 	}
