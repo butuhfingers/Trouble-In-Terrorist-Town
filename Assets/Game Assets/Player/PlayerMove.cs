@@ -6,11 +6,11 @@ using UnityEngine.Networking;
 public class PlayerMove : MonoBehaviour {
 	//Constructor
 	public PlayerMove(PlayerBase player){
-		this.player = player;
+		this.playerBase = player;
 	}
 
 	//Variables
-	private PlayerBase player;
+	private PlayerBase playerBase;
 	private float moveSpeed = 5.0f;
 	private float moveSpeedAmplifer = 2.0f;
 	private float rotationSpeed = 50.0f;
@@ -42,10 +42,10 @@ public class PlayerMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void UpdatePosition () {
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * MoveSpeed * moveSpeedAmplifer;
+		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * playerBase.PlayerInformation.MovementSpeed * playerBase.PlayerInformation.MovementAmplifier;
 		Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * Time.deltaTime * RotationSpeed * sensitivity;
 
-		player.transform.Translate(move);
-		player.transform.Rotate(0, mouseMovement.x, 0);
+		playerBase.transform.Translate(move);
+		playerBase.transform.Rotate(0, mouseMovement.x, 0);
 	}
 }

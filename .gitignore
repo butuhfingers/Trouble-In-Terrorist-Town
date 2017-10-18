@@ -36,3 +36,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+#Folders to ignore
+*Model Library/
+*Sound Library/
+*PostProcessing/

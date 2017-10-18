@@ -10,8 +10,4 @@ public class PlayerNetworker : NetworkBehaviour {
 			return isLocalPlayer;
 		}
 	}
-
-	private void Start(){
-		
-	}
 }
