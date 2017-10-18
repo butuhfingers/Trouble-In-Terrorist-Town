@@ -29,6 +29,13 @@ public class PlayerBase : NetworkBehaviour {
 			playerNameText.GetComponent<TextMesh>().text = value;
 		}
 	}
+	public PlayerMove PlayerMoveScript{
+		get{ return playerMoveScript; }
+	}
+	public PlayerCamera PlayerCameraScript{
+		get{ return playerCameraScript; }
+	}
+
 
 	//Player name text properties
 	public GameObject PlayerNameText{
@@ -58,10 +65,8 @@ public class PlayerBase : NetworkBehaviour {
 		//We need to check if we are a network player before adding these
 		if(playerNetworkerScript.IsLocalPlayer){
 			//Add this to our player
-			playerCameraScript = gameObject.AddComponent<PlayerCamera>();
-			playerCameraScript.Initialize(new MurderCameraSetup());	//Set the camera to the murder camera setup
-			Debug.Log("Another test commit");
-			playerMoveScript = gameObject.AddComponent<PlayerMove>();
+			playerCameraScript = new PlayerCamera(new MurderCameraSetup(), FindMainCamera(), this);
+			playerMoveScript = new PlayerMove(this);
 		}
 	}
 
@@ -70,6 +75,14 @@ public class PlayerBase : NetworkBehaviour {
 		//We need to face the player names to the player camera
 		playerNameText.transform.LookAt((2 * PlayerNameText.transform.position) - mainCamera.transform.position);
 		PlayerName = playerName;
+
+		//Everything below this if for the local player
+		if(!playerNetworkerScript.IsLocalPlayer)
+			return;
+
+		//Update our player's camera position
+		playerCameraScript.UpdatePosition();
+		playerMoveScript.UpdatePosition();
 	}
 
 

@@ -23,4 +23,8 @@ public class BaseCameraSetup : MonoBehaviour, ICameraSetup {
 	public float Z{
 		get{return startCameraPosition.z;}
 	}
+
+	public Vector3 Position{
+		get{ return startCameraPosition; }
+	}
 }

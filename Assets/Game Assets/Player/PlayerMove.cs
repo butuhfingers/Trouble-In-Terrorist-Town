@@ -4,8 +4,17 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerMove : MonoBehaviour {
+	//Constructor
+	public PlayerMove(PlayerBase player){
+		this.player = player;
+	}
+
 	//Variables
-	private float moveSpeed = 3.0f;
+	private PlayerBase player;
+	private float moveSpeed = 5.0f;
+	private float moveSpeedAmplifer = 2.0f;
+	private float rotationSpeed = 50.0f;
+	[Range(0.0f, 10.0f)]private float sensitivity = 2.0f;
 	private PlayerNetworker objectNetwork;
 
 	//Properties
@@ -16,6 +25,13 @@ public class PlayerMove : MonoBehaviour {
 			moveSpeed = value;
 		}
 	}
+	public float RotationSpeed{
+		get { return rotationSpeed; }
+	}
+	public float Sensitivity{
+		get{ return sensitivity; }
+	}
+
 	public PlayerNetworker ObjectNetwork{
 		get{
 			//Check if the player networker is attached
@@ -23,24 +39,13 @@ public class PlayerMove : MonoBehaviour {
 			return GetComponent<PlayerNetworker>();
 		}
 	}
-
-
-
-	// Use this for initialization
-	void Start () {
-		//do nothing
-	}
 	
 	// Update is called once per frame
-	void Update () {
-		//Check if we are not a local player
-/*		if(!ObjectNetwork.IsLocalPlayer){
-			//Do not continue otherwise
-			return;
-		}
-*/
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * MoveSpeed;
+	public void UpdatePosition () {
+		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * MoveSpeed * moveSpeedAmplifer;
+		Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * Time.deltaTime * RotationSpeed * sensitivity;
 
-		transform.Translate(move);
+		player.transform.Translate(move);
+		player.transform.Rotate(0, mouseMovement.x, 0);
 	}
 }
